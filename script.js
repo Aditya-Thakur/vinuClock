@@ -1,6 +1,8 @@
 function generateSlot() {
     const startTime = document.getElementById('start-time').value;
     const endTime = document.getElementById('end-time').value;
+    const dice = document.getElementById('dice');
+    const result = document.getElementById('result');
 
     if (!startTime || !endTime) {
         alert('Please select both start and end times');
@@ -23,9 +25,18 @@ function generateSlot() {
         return;
     }
 
-    const randomStartTime = new Date(minTime + Math.random() * (maxTime - minTime));
-    const randomEndTime = new Date(randomStartTime.getTime() + (2 * 60 * 60 * 1000));
+    // Show dice animation
+    dice.style.display = 'block';
+    result.textContent = '';
 
-    const options = { hour: '2-digit', minute: '2-digit' };
-    document.getElementById('result').textContent = `Random Slot: ${randomStartTime.toLocaleTimeString([], options)} - ${randomEndTime.toLocaleTimeString([], options)}`;
+    setTimeout(() => {
+        const randomStartTime = new Date(minTime + Math.random() * (maxTime - minTime));
+        const randomEndTime = new Date(randomStartTime.getTime() + (2 * 60 * 60 * 1000));
+
+        const options = { hour: '2-digit', minute: '2-digit' };
+        result.textContent = `Random Slot: ${randomStartTime.toLocaleTimeString([], options)} - ${randomEndTime.toLocaleTimeString([], options)}`;
+
+        // Hide dice animation
+        dice.style.display = 'none';
+    }, 1000); // Adjust the time to match the duration of the dice animation
 }
